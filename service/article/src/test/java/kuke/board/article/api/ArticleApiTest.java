@@ -8,8 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
+
+import java.util.List;
 
 public class ArticleApiTest {
 
@@ -78,6 +81,31 @@ public class ArticleApiTest {
         for(ArticleResponse article : response.getArticles()) {
             System.out.println("article = " + article);
         }
+    }
+
+    @Test
+    void readAllInfiniteScrollTest(){
+        List<ArticleResponse> articles1 = restClient.get()
+                .uri("/v1/articles/infinite-scroll?boardId=1&pageSize=5")
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<ArticleResponse>>() {});
+
+        System.out.println("firstPage");
+        for(ArticleResponse article : articles1) {
+            System.out.println("article = " + article.getArticleId());
+        }
+
+        Long lastArticleId = articles1.getLast().getArticleId();
+        List<ArticleResponse> articles2 = restClient.get()
+                .uri("/v1/articles/infinite-scroll?boardId=1&pageSize=5&lastArticleId=" + lastArticleId)
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<ArticleResponse>>() {});
+
+        System.out.println("secondPage");
+        for(ArticleResponse article : articles2) {
+            System.out.println("article = " + article.getArticleId());
+        }
+
     }
 
 

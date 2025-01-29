@@ -74,4 +74,10 @@ class SnowflakeTest {
 
 		executorService.shutdown();
 	}
+
+	@Test
+	void nextIdValueTest(){
+		long l = snowflake.nextId();
+		System.out.println(l);
+	}
 }
