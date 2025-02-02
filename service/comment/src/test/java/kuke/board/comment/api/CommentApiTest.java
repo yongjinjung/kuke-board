@@ -117,9 +117,6 @@ public class CommentApiTest {
             }
             System.out.printf("commentId=%s%n", comment.getCommentId());
         }
-
-
-
-
     }
+
 }
