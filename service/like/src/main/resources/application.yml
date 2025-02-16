@@ -1,2 +1,16 @@
 server:
   port: 9003
+spring:
+  application:
+    name: keke-board-like-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.01:3306/article_like
+    username: board
+    password: 1043jin1!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
